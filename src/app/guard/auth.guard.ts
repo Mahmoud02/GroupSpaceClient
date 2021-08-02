@@ -1,0 +1,35 @@
+import { Injectable } from '@angular/core';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree} from '@angular/router';
+import { Observable } from 'rxjs';
+import {MatSnackBar} from '@angular/material/snack-bar';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthGuard implements CanActivate {
+  constructor( private router: Router , private snackBar: MatSnackBar) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    if (localStorage.getItem('userData')) {
+      // logged in so return true
+      return true;
+    }
+    // not logged in so redirect to login page with the return url
+    this.router.navigateByUrl('/login').then(
+      value => {
+        this.openSnackBar('You need to Login in ', 'close',
+        {
+          duration: 3000,
+          panelClass: ['invalidToast']
+        }
+        );
+      }
+    );
+    return false;
+  }
+  openSnackBar(message: string, action: string , config: any): void {
+    this.snackBar.open(message, action, config);
+  }
+}

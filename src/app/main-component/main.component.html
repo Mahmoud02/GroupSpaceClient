@@ -1,0 +1,39 @@
+<ng-sidebar-container>
+  <ng-sidebar
+    [(opened)]="_opened"
+    [mode]="mode"
+  >
+    <h3><a href="#">Group Space</a></h3>
+    <ul style="list-style: none">
+      <li>
+        <button style="width: 100%;color: white;" mat-button [routerLink]="'/joined'">Joined Groups</button>
+      </li>
+      <li>
+        <button style="width: 100%;color: white;" mat-button [routerLink]="'/manage'">Manage Groups</button>
+      </li>
+      <li>
+        <button style="width: 100% ;color: white;" mat-button [routerLink]="'/find'">Search Groups</button>
+      </li>
+      <li>
+        <button  style="width: 100%;color: white;" mat-button [routerLink]="'/profile'">Profile</button>
+      </li>
+      <li>
+        <button  style="width: 100%;color: white;" mat-button (click)="signOutUser()">Sign Out</button>
+      </li>
+      <li>
+        <button  style="width: 100%;color: white;" mat-button>Notes</button>
+      </li>
+    </ul>
+    <!--<button class="demo-control" (click)="_toggleOpened()">opened ({{_opened}})</button>-->
+  </ng-sidebar>
+  <div ng-sidebar-content style="height: 100%;">
+   <!-- <header class="demo-header">
+      <button (click)="_toggleOpened()" class="demo-header__toggle">Toggle sidebar</button>
+      <span>ng-sidebar</span>
+    </header>
+    -->
+    <section class="demo-contents">
+      <router-outlet></router-outlet>
+    </section>
+  </div>
+</ng-sidebar-container>

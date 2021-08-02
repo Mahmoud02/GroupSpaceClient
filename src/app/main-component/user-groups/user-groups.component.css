@@ -1,0 +1,46 @@
+.card-title{
+  font-size: 1.359em;
+}
+.generic-button{
+  background-color: transparent;
+  color: #5561e2;
+  fill: #5561e2;
+  border: 1px solid #5561e2;
+  border-radius: 30px;
+  padding: .375rem 2rem;
+  min-height: 2.5rem;
+  transition: all 0.5s ease-in-out;
+
+}
+.generic-button:hover{
+  background-color:#5561e2;
+  color: white;
+  /*transform: translateY(-10px);*/
+}
+.card-img-top{
+  height: 200px;
+}
+.create-group{
+  height: 250px;
+  border: 1px dashed black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.create-group-content{
+  text-align: center;
+}
+
+.circle-icon {
+  background: #ffc0c0;
+  border-radius: 50%;
+  padding: 30px;
+}
+.invalid{
+  color: red;
+  margin-top: 1px;
+}
+
+
+
+

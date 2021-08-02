@@ -1,0 +1,86 @@
+<div class="banner mt-3">
+  <img class="banner-cover"
+       src="assets/images/banner-bg.png"
+       alt="banner-cover">
+  <img class="group-img"
+       src="assets/images/groups-icon.png"
+       alt="groups-icon">
+</div>
+<div class="search-navbar mt-2">
+  <div class="search-container">
+    <div class="input-div">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Group's name" aria-label="Group's name" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+        </div>
+      </div>
+    </div>
+    <div class="search-options">
+      <ul>
+        <li>Newly Created</li>
+        <li>Most Members</li>
+        <li>Alphabetical</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-2 ">
+  <div *ngFor="let item of GroupsList" class="col-md-4">
+    <div class="card">
+      <img class="card-img-top card-img"
+           [src]="item.coverPhotoUrl"
+           alt="Card image cap">
+      <span class="avatar">
+          <img class="bio-photo"
+               alt="Profile Photo"
+               [src]="item.coverPhotoUrl"/>
+      </span>
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.description}}</p>
+      </div>
+      <div class="card-footer">
+        <div class="group-info">
+          <ul>
+            <li>
+              <button mat-mini-fab color="primary" matTooltip="8 Members">
+                <mat-icon>group</mat-icon>
+              </button>
+            </li>
+            <li>
+              <button *ngIf="!item.private" mat-mini-fab color="basic" matTooltip="Public Group">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button *ngIf="item.private" mat-mini-fab color="basic" matTooltip="Private Group">
+                <mat-icon>visibility_off</mat-icon>
+              </button>
+            </li>
+            <li>
+              <a [routerLink]="['/group', item.groupId]">
+                <button mat-mini-fab color="primary" matTooltip="Open Group">
+                  <mat-icon>launch</mat-icon>
+                </button>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="group-actions">
+          <ul>
+            <li>
+              <button mat-mini-fab color="basic" matTooltip="delete the group" class=""
+                      (click)="setDropDownListVisibility(element)">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </li>
+          </ul>
+          <div class="dropList" #element>
+            <button class="dropdown-item" href="#">Share</button>
+            <button class="dropdown-item" href="#">Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

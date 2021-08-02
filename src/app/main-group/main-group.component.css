@@ -1,0 +1,19 @@
+.main-group-container{
+  height: 100%;
+}
+::ng-deep .mat-tab-group{
+  height: 100%;
+}
+::ng-deep .mat-tab-body-wrapper{
+  height: 100%;
+}
+
+::ng-deep .mat-tab-label {
+  background-color: transparent;
+  width: 100%;
+}
+
+::ng-deep .mat-tab-label-content{
+  color: red;
+}
+

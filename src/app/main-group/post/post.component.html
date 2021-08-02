@@ -1,0 +1,210 @@
+<div class="container mt-3">
+  <div class="publish-post shadow  mb-5 bg-white rounded">
+    <div class="publish-header">
+    </div>
+    <div class="publish-content">
+        <textarea rows="4" class="form-control" required name="postDescription" ngModel #postDescription="ngModel" placeholder="What's in your mind?"></textarea>
+        <img *ngIf="uploadedImageUrl" [src]="uploadedImageUrl" >
+    </div>
+    <div class="publish-footer mt-2 p-3">
+      <div style="display: inline-block">
+        <ul>
+          <li><input accept="image/*"  #postPhoto type="file" (change)="showImage($event)"></li>
+        </ul>
+      </div>
+      <div style="float: right;display: inline-block">
+        <ul>
+          <li>  <button type="button" class="btn btn-success mx-2" [disabled]="postDescription.errors?.required" (click)="publishPost(postDescription.value,postPhoto)">Publish</button>
+          </li>
+          <li>  <button type="button" class="btn btn-danger">Discard</button></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-sm-offset-2">
+      <div class="row">
+
+        <div class="col-sm-6" *ngFor="let item of Posts">
+          <div class="panel panel-white post">
+            <div class="post-heading">
+              <div class="pull-left image">
+                <img [src]="item.user.personalImageUrl"  class="img-circle avatar"
+                     alt="user profile image">
+              </div>
+              <div class="pull-left meta">
+                <div class="title h5">
+                  <a href="#"><b>{{item.user.userName}}</b></a>
+                </div>
+                <h6 class="text-muted time">{{item.date}}</h6>
+              </div>
+              <div class="post-actions">
+                <ul>
+                  <li>
+                    <button mat-mini-fab color="basic" matTooltip="delete the group"  (click)="setDropDownListVisibility(element)">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                  </li>
+                </ul>
+                <div class="dropList" #element>
+                  <button class="dropdown-item" href="#">Share</button>
+                  <button class="dropdown-item" href="#">Report</button>
+                </div>
+                <!--<ul class="actions">
+                  <li>
+                    <a   [routerLink]="'/groupDetails'"class="btn  generic-button">Group Details</a>
+                  </li>
+                </ul>-->
+              </div>
+            </div>
+            <div *ngIf="item.photoUrl" class="post-image">
+              <img [src]="item.photoUrl"  class="image" alt="image post"/>
+            </div>
+            <div class="post-description">
+              <p>{{item.text}}</p>
+              <div class="stats">
+                <a href="javascript:void(0);" class="btn btn-default stat-item">
+                  <i class="fa fa-thumbs-up icon"></i>{{item.numOfLikes}}
+                </a>
+                <a href="javascript:void(0);" class="btn btn-default stat-item">
+                  <i class="fa fa-share icon"></i>0
+                </a>
+                <a  class="btn btn-default stat-item" (click)="setCommentsVisibilty(comments)">
+                  <i class="fa fa-comment icon"></i>0
+                </a>
+              </div>
+            </div>
+            <div class="post-footer" #comments style="display: none">
+              <div class="input-group">
+                <input class="form-control" placeholder="Add a comment" type="text">
+                <span class="input-group-addon">
+                                <a href="javascript:void(0);"><i class="fa fa-edit"></i></a>
+                            </span>
+              </div>
+              <ul class="comments-list">
+                <li class="comment">
+                  <a class="pull-left" href="javascript:void(0);">
+                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                  </a>
+                  <div class="comment-body">
+                    <div class="comment-heading">
+                      <h4 class="user">John dOE</h4>
+                      <h5 class="time">7 minutes ago</h5>
+                    </div>
+                    <p>I really love this picture. I really wish i could have been there.</p>
+                  </div>
+                </li>
+                <li class="comment">
+                  <a class="pull-left" href="javascript:void(0);">
+                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                  </a>
+                  <div class="comment-body">
+                    <div class="comment-heading">
+                      <h4 class="user">John Doe</h4>
+                      <h5 class="time">3 minutes ago</h5>
+                    </div>
+                    <p>I think I might you this for one of my projects.</p>
+                  </div>
+                </li>
+                <li class="comment">
+                  <a class="pull-left" href="javascript:void(0);">
+                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="avatar">
+                  </a>
+                  <div class="comment-body">
+                    <div class="comment-heading">
+                      <h4 class="user">John Doe</h4>
+                      <h5 class="time">10 seconds ago</h5>
+                    </div>
+                    <p>Wow! This is gorgeous.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="panel panel-white post">
+            <div class="post-heading">
+              <div class="pull-left image">
+                <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle avatar"
+                     alt="user profile image">
+              </div>
+              <div class="pull-left meta">
+                <div class="title h5">
+                  <a href="#"><b>John Doe</b></a>
+                </div>
+                <h6 class="text-muted time">5 seconds ago</h6>
+              </div>
+            </div>
+            <div class="post-image">
+              <img src=""><img src="https://via.placeholder.com/400x200" style="height:500px" class="image" alt="image post">
+            </div>
+            <div class="post-description">
+              <h4>Product Shoot</h4>
+              <p>Here is a picture of the walkway to our product shoot.</p>
+              <div class="stats">
+                <a href="javascript:void(0);" class="btn btn-default stat-item">
+                  <i class="fa fa-thumbs-up icon"></i>228
+                </a>
+                <a href="javascript:void(0);" class="btn btn-default stat-item">
+                  <i class="fa fa-share icon"></i>128
+                </a>
+                <a  class="btn btn-default stat-item" (click)="setCommentsVisibilty(element)">
+                  <i class="fa fa-comment icon"></i>0
+                </a>
+              </div>
+            </div>
+            <div class="post-footer" #element style="display: none">
+              <div class="input-group">
+                <input class="form-control" placeholder="Add a comment" type="text">
+                <span class="input-group-addon">
+                                <a href="javascript:void(0);"><i class="fa fa-edit"></i></a>
+                            </span>
+              </div>
+              <ul class="comments-list">
+                <li class="comment">
+                  <a class="pull-left" href="javascript:void(0);">
+                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                  </a>
+                  <div class="comment-body">
+                    <div class="comment-heading">
+                      <h4 class="user">John dOE</h4>
+                      <h5 class="time">7 minutes ago</h5>
+                    </div>
+                    <p>I really love this picture. I really wish i could have been there.</p>
+                  </div>
+                </li>
+                <li class="comment">
+                  <a class="pull-left" href="javascript:void(0);">
+                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
+                  </a>
+                  <div class="comment-body">
+                    <div class="comment-heading">
+                      <h4 class="user">John Doe</h4>
+                      <h5 class="time">3 minutes ago</h5>
+                    </div>
+                    <p>I think I might you this for one of my projects.</p>
+                  </div>
+                </li>
+                <li class="comment">
+                  <a class="pull-left" href="javascript:void(0);">
+                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="avatar">
+                  </a>
+                  <div class="comment-body">
+                    <div class="comment-heading">
+                      <h4 class="user">John Doe</h4>
+                      <h5 class="time">10 seconds ago</h5>
+                    </div>
+                    <p>Wow! This is gorgeous.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

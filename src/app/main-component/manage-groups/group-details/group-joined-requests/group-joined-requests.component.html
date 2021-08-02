@@ -1,0 +1,35 @@
+<p>You can bind our <code>NgbPagination</code> component with slicing the data list</p>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">Date</th>
+    <th colspan="2" scope="col">Actions</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of FilteredJoinRequestList; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ item.user.userName}}</td>
+    <td>{{ item.date}}</td>
+    <td>
+      <button  type="button" class="btn btn-outline-success" (click)="acceptJoinRequest(item.joinRequestId)">Accept</button>
+      <button  type="button" class="btn btn-outline-danger mx-4" (click)="refuseJoinRequest(item.joinRequestId)">Refuse</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshList()">
+  </ngb-pagination>
+
+  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshList()">
+    <option [ngValue]="2">2 items per page</option>
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select>
+</div>

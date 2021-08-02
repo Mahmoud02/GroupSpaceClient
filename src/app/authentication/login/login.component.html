@@ -1,0 +1,31 @@
+<div class="container p-5 " >
+  <div class="row flex-row-reverse">
+    <div class="col-md-5 shadow-lg bg-white rounded p-5" >
+      <h2>Sign In </h2>
+      <form class="">
+        <div class="form-group">
+          <label for="InputEmail">Email </label>
+          <input type="email" email class="form-control" id="InputEmail" required name="InputEmail" ngModel #InputEmail="ngModel" placeholder="example@example.com">
+          <small id="emailHelp" class="form-text text-muted">we ill not share your email with anyone</small>
+          <small  class=" form-text  invalid"  *ngIf="InputEmail.errors?.required && InputEmail.dirty">Email Is Required.</small>
+          <small  class=" form-text  invalid"  *ngIf="InputEmail.invalid && InputEmail.dirty">Email Is Wrong.</small>
+
+        </div>
+        <div class="form-group">
+          <label for="InputPassword">Password</label>
+          <input type="password" class="form-control" id="InputPassword" required name="InputPassword" ngModel #InputPassword="ngModel" placeholder="Password">
+          <small  class=" form-text  invalid"  *ngIf="InputPassword.errors?.required && InputPassword.dirty"> Password Is Required..</small>
+        </div>
+        <button type="submit" [disabled]="InputEmail.errors?.required || InputEmail.invalid|| InputPassword.errors?.required" (click)="authenticate(InputEmail.value,InputPassword.value)">Sign in</button>
+        <a href="#">Forget Your Password?</a>
+        <a href="#">Sign Up</a>
+      </form>
+    </div>
+    <div class="col-md-7" style="text-align: center;">
+      <h1>GroupSpace</h1>
+      <p>Share Your Passion with your Friends</p>
+      <img src="assets/images/9813.jpg" style="width: 90%;" alt="photo"/>
+    </div>
+  </div>
+</div>
+<mat-progress-spinner [style.visibility]="showSpinner ? 'visible' : 'hidden'"  class="loading-spinner" mode="indeterminate"  ></mat-progress-spinner>

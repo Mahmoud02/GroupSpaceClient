@@ -1,0 +1,325 @@
+<div class="banner mt-3">
+  <img class="banner-cover"
+       src="assets/images/banner-bg.png"
+       alt="banner-cover">
+    <img class="group-img"
+         src="assets/images/groups-icon.png"
+         alt="groups-icon">
+</div>
+<div class="search-navbar mt-2">
+  <div class="search-container">
+    <div class="input-div">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Group's name" aria-label="Group's name" aria-describedby="button-addon2">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
+        </div>
+      </div>
+  </div>
+    <div class="search-options">
+      <ul>
+        <li>Newly Created</li>
+        <li>Most Members</li>
+        <li>Alphabetical</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-2 ">
+  <div class="col-md-4">
+    <div class="card">
+      <img class="card-img-top card-img"
+           src="https://olympus.crumina.net/wp-content/uploads/buddypress/groups/1/cover-image/5c386879371d9-bp-cover-image.jpeg"
+           alt="Card image cap">
+      <span class="avatar">
+          <img class="bio-photo"
+               alt="Profile Photo"
+               src="https://olympus.crumina.net/wp-content/uploads/group-avatars/2/5c6bcf3fdd2b7-bpfull.jpg"/>
+      </span>
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.</p>
+      </div>
+      <div class="card-footer">
+        <div class="group-info">
+          <ul>
+            <li>
+              <button mat-mini-fab color="primary" matTooltip="8 Members">
+                <mat-icon>group</mat-icon>
+              </button>
+            </li>
+            <li>
+              <button mat-mini-fab color="basic">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </li>
+            <li>
+              <button mat-mini-fab color="primary">
+                <mat-icon>launch</mat-icon>
+              </button>
+            </li>
+            <li>
+              <button mat-mini-fab color="warn" matTooltip="Open Dashboard">
+                <mat-icon>dashboard</mat-icon>
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div class="group-actions">
+          <ul>
+            <li>
+              <button mat-mini-fab color="basic" matTooltip="delete the group" class=""
+                      (click)="setDropDownListVisibility(element)">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </li>
+          </ul>
+          <div class="dropList" #element>
+            <button class="dropdown-item" href="#">Share</button>
+            <button class="dropdown-item" href="#">Report</button>
+          </div>
+          <!--<ul class="actions">
+            <li>
+              <a   [routerLink]="'/groupDetails'"class="btn  generic-button">Group Details</a>
+            </li>
+          </ul>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngFor="let item of GroupsList" class="col-md-4">
+    <div class="card">
+      <img class="card-img-top card-img"
+           [src]="item.coverPhotoUrl"
+           alt="Card image cap">
+      <span class="avatar">
+          <img class="bio-photo"
+               alt="Profile Photo"
+               [src]="item.coverPhotoUrl"/>
+      </span>
+      <div class="card-body">
+        <h5 class="card-title">{{item.name}}</h5>
+        <p class="card-text">{{item.description}}</p>
+      </div>
+      <div class="card-footer">
+        <div class="group-info">
+          <ul>
+            <li>
+              <button mat-mini-fab color="primary" matTooltip="8 Members">
+                <mat-icon>group</mat-icon>
+              </button>
+            </li>
+            <li>
+              <button *ngIf="!item.private" mat-mini-fab color="basic" matTooltip="Public Group">
+                <mat-icon>visibility</mat-icon>
+              </button>
+              <button *ngIf="item.private" mat-mini-fab color="basic" matTooltip="Private Group">
+                <mat-icon>visibility_off</mat-icon>
+              </button>
+            </li>
+            <li>
+              <a [routerLink]="['/group', item.groupId]">
+                <button mat-mini-fab color="primary">
+                  <mat-icon>launch</mat-icon>
+                </button>
+              </a>
+            </li>
+            <li>
+
+                <a [routerLink]="['/dashboard', item.groupId]" [state]="{ state:item.groupId}">
+                  <button mat-mini-fab color="warn" matTooltip="Open Dashboard" title="dashboard">
+                    <mat-icon>dashboard</mat-icon>
+                  </button>
+                </a>
+            </li>
+          </ul>
+        </div>
+        <div class="group-actions">
+          <ul>
+            <li>
+              <button mat-mini-fab color="basic" matTooltip="delete the group" class=""
+                      (click)="setDropDownListVisibility(element)">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+            </li>
+          </ul>
+          <div class="dropList" #element>
+            <button class="dropdown-item" href="#">Share</button>
+            <button class="dropdown-item" href="#">Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="create-group">
+      <div class="create-group-content">
+        <i  class="fa fa-users fa-3x circle-icon"></i>
+        <h3>Create New Group</h3>
+        <p>share your passion with others</p>
+        <button  class="btn  generic-button" (click)="open(content)" >Start Creating</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+      <div class="card">
+        <img class="card-img-top card-img"
+             src="https://olympus.crumina.net/wp-content/uploads/buddypress/groups/1/cover-image/5c386879371d9-bp-cover-image.jpeg"
+             alt="Card image cap">
+        <span class="avatar">
+          <img class="bio-photo"
+               alt="Profile Photo"
+               src="https://olympus.crumina.net/wp-content/uploads/group-avatars/2/5c6bcf3fdd2b7-bpfull.jpg"/>
+      </span>
+        <div class="card-body">
+          <h5 class="card-title">Example</h5>
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+            content.</p>
+        </div>
+        <div class="card-footer">
+          <div class="group-info">
+            <ul>
+              <li>
+                <button mat-mini-fab color="primary" matTooltip="8 Members">
+                  <mat-icon>group</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="basic">
+                  <mat-icon>visibility</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="primary">
+                  <mat-icon>visibility_off</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="primary">
+                  <mat-icon>launch</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="primary">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="primary">
+                  <mat-icon>add_box</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="primary">
+                  <mat-icon>add_circle</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="primary">
+                  <mat-icon>add_circle_outline</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-raised-button>Join<mat-icon>add</mat-icon></button>
+              </li>
+            </ul>
+          </div>
+          <div class="group-actions">
+            <ul>
+
+              <li>
+                <button mat-mini-fab color="primary" matTooltip="share group with other people">
+                  <mat-icon>share</mat-icon>
+                </button>
+              </li>
+
+
+              <li>
+                <button mat-mini-fab color="accent">
+                  <mat-icon>settings</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="accent">
+                  <mat-icon>report</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="warn" matTooltip="Open Dashboard">
+                  <mat-icon>dashboard</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="basic" matTooltip="Add Group to your Favorites">
+                  <mat-icon>favorite</mat-icon>
+                </button>
+              </li>
+              <li>
+                <button mat-mini-fab color="warn" matTooltip="delete the group">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </li>
+
+            </ul>
+          </div>
+
+          <!--<ul class="actions">
+            <li>
+              <a   [routerLink]="'/groupDetails'"class="btn  generic-button">Group Details</a>
+            </li>
+          </ul>-->
+        </div>
+      </div>
+    </div>
+</div>
+  <!--add new Group-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Group Info</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" required name="groupName" ngModel #groupName="ngModel"
+                 placeholder="Enter Group Name">
+          <div class="invalid" *ngIf="groupName.errors?.required && groupName.dirty">
+            Group Name Is Required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <input type="text" class="form-control" required name="groupDescription" ngModel #groupDescription="ngModel"
+                 placeholder="Enter Group Description">
+          <div class="invalid" *ngIf="groupDescription.errors?.required && groupDescription.dirty ">
+            Group Description Is Required.
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Group Type</label>
+          <select class="form-control" #groupType >
+            <option *ngFor="let item of GroupsTypesList" value="{{item.groupTypeId}}">{{item.text}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Group Photo</label>
+          <input accept="image/*" type="file" class="form-control" #groupPhoto placeholder="Select Group Cover">
+        </div>
+        <div class="form-group">
+          <mat-slide-toggle [(ngModel)]="isPrivate" name="groupPrivate" #groupPrivate="ngModel"><span>private </span>
+          </mat-slide-toggle>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark"
+              [disabled]="(groupDescription.errors?.required || groupName.errors?.required)"
+              (click)="saveGroup(modal,groupName.value,groupDescription.value,groupType.value,groupPhoto,groupPrivate.value)">Save
+      </button>
+    </div>
+  </ng-template>

@@ -1,0 +1,91 @@
+<div class="row">
+
+
+  <div class="col-md-3">
+    <div class="card" >
+      <img class="card-img-top" src="https://mythemestore.com/beehive-preview/wp-content/uploads/buddypress/groups/8/cover-image/5eb438f3cc72f-bp-cover-image.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn  generic-button">Join Group</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card" >
+      <img class="card-img-top" src="https://mdbootstrap.com/img/new/standard/nature/111.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn  generic-button">Join Group</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card" >
+      <img class="card-img-top" src="https://mdbootstrap.com/img/new/standard/nature/111.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn  generic-button">Join Group</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card" >
+      <img class="card-img-top" src="https://mdbootstrap.com/img/new/standard/nature/111.jpg" alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title">Card title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <a href="#" class="btn  generic-button">Join Group</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="create-group">
+      <div class="create-group-content">
+          <i  class="fa fa-users fa-3x circle-icon"></i>
+        <h3>Create New Group</h3>
+        <p>share your passion with others</p>
+        <button  class="btn  generic-button" (click)="open(content)" >Start Creating</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--add new Group-->
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Group Info</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group">
+        <label >Name</label>
+        <input type="text" class="form-control" required name="groupName" ngModel #groupName="ngModel"  placeholder="Enter Group Name">
+        <div class="invalid" *ngIf="groupName.errors?.required && groupName.dirty">
+          Group Name Is Required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label >Description</label>
+        <input type="text" class="form-control" required name="groupDescription" ngModel #groupDescription="ngModel"  placeholder="Enter Group Description">
+        <div class="invalid" *ngIf="groupDescription.errors?.required && groupDescription.dirty ">
+          Group Description Is Required.
+        </div>
+      </div>
+      <div class="form-group">
+        <label >Group Photo</label>
+        <input type="text" class="form-control" #groupPhoto placeholder="Enter Group Photo">
+      </div>
+      <div class="form-group">
+      <mat-slide-toggle [(ngModel)]="isPrivate" name="groupPrivate"  #groupPrivate="ngModel" > <span>private </span></mat-slide-toggle>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" [disabled]="(groupDescription.errors?.required || groupName.errors?.required)" (click)="saveGroup(modal,groupName.value,groupDescription.value,groupPhoto.value,groupPrivate.value)">Save</button>
+  </div>
+</ng-template>

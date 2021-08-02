@@ -1,0 +1,16 @@
+.widget{
+  text-align: center;
+}
+.widget-title {
+  margin-top: 0;
+  margin-bottom: .75em;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15em;
+}
+.widget-count {
+  vertical-align: middle;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.16667em;
+}

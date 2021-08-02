@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: #f6f6f6;
+  color: #545555;
+  font: 400 1em/1.25 'Source Sans Pro', 'Helvetica', 'Arial', sans-serif;
+}
+
+.ng-sidebar{
+  background-color: black;
+  height: 100%;
+  width: 200px;
+}
+.invalid{
+  color: red;
+  margin-top: 1px;
+}
+.loading-spinner{
+  position: absolute !important;
+  left:50%;
+  top:40%;
+  width: 60px !important;
+  height: 60px !important;
+ overflow: visible !important;
+}
+ .invalidToast{
+  background-color:red;
+  color:white;
+}

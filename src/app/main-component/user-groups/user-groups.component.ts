@@ -42,7 +42,6 @@ export class UserGroupsComponent implements OnInit {
         Description: groupDescription,
         CoverPhotoUrl: groupPhoto,
         Private: groupPrivate,
-        UserId: 1,
         GroupTypeId: 1
       };
       modal.close();

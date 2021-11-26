@@ -6,6 +6,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {IGroup} from '../../models/IGroup';
 import {GroupTypesService} from '../../Services/group-types.service';
 import {IGroupTypes} from '../../models/IGroupTypes';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-manage-groups',
@@ -25,15 +26,16 @@ export class ManageGroupsComponent implements OnInit {
     private groupTypesService: GroupTypesService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private oauthService: OAuthService
   ) {
-    this.user = JSON.parse( localStorage.getItem('userData') as string);
-    this.userEmail = this.user.email;
-    this.userId = this.user.userId;
+    const claims: any = this.oauthService.getIdentityClaims();
+    this.userId = claims.sub;
   }
   /*save group*/
   isPrivate = false;
   ngOnInit(): void {
+    const claims: any = this.oauthService.getIdentityClaims();
     this.getUserGroups(this.userId);
     this.getGroupTypes();
   }
@@ -63,7 +65,6 @@ export class ManageGroupsComponent implements OnInit {
         Description: groupDescription,
         CoverPhoto: coverPhoto,
         Private: groupPrivate,
-        UserId: this.userId,
         GroupTypeId: groupTypeId
       };
       modal.close();

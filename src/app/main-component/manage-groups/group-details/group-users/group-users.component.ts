@@ -29,6 +29,10 @@ export class GroupUsersComponent implements OnInit{
     // @ts-ignore
     const routerData = router.getCurrentNavigation().extras.state;
     // @ts-ignore
+    console.log('in user');
+    console.log(router.getCurrentNavigation());
+
+    // @ts-ignore
     this.GROUP_ID = routerData.state;
   }
 

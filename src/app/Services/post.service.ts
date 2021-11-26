@@ -10,6 +10,7 @@ export class PostService {
 
   endPoint = 'https://localhost:44306/api/posts';
   endPoint2 = 'https://localhost:44306/api/groups';
+  endPoint3 = 'https://localhost:44306/api/postReports';
   constructor(private httpClient: HttpClient) { }
   httpHeader = {
     headers: new HttpHeaders({
@@ -26,7 +27,13 @@ export class PostService {
 
     return this.httpClient.post<any>(this.endPoint, formData);
   }
+  deletePost(postId: any): Observable<any> {
+    return this.httpClient.delete<any>(this.endPoint + '/' + postId , this.httpHeader);
+  }
   getGroupPosts(groupId: any): Observable<any> {
     return this.httpClient.get<IPost[]>(this.endPoint2 + '/' + groupId + '/posts', this.httpHeader);
+  }
+  reportPost(reportObj: any): Observable<any> {
+    return this.httpClient.post<any>(this.endPoint3, reportObj , this.httpHeader);
   }
 }

@@ -14,6 +14,7 @@ import {GroupUsersComponent} from './main-component/manage-groups/group-details/
 import {GroupJoinedRequestsComponent} from './main-component/manage-groups/group-details/group-joined-requests/group-joined-requests.component';
 import {GroupInfoComponent} from './main-component/manage-groups/group-details/group-info/group-info.component';
 import {MainGroupComponent} from './main-group/main-group.component';
+import {GroupReportsComponent} from './main-component/manage-groups/group-details/group-reports/group-reports.component';
 
 const routes: Routes = [
   { path: '',
@@ -46,7 +47,7 @@ const routes: Routes = [
           },
           {
             path: 'reports', // child route path
-            component: GroupJoinedRequestsComponent,
+            component: GroupReportsComponent,
           },
           {
             path: 'info', // child route path

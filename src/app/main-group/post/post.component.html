@@ -49,8 +49,8 @@
                   </li>
                 </ul>
                 <div class="dropList" #element>
-                  <button class="dropdown-item" href="#">Share</button>
-                  <button class="dropdown-item" href="#">Report</button>
+                  <button *ngIf="item.userId == this.userId" (click)="deletePost(item.postId)" class="dropdown-item" >Delete</button>
+                  <button *ngIf="item.userId != this.userId" (click)="reportPost(item.postId,item.userId)" class="dropdown-item" href="#">Report</button>
                 </div>
                 <!--<ul class="actions">
                   <li>
@@ -68,62 +68,40 @@
                 <a href="javascript:void(0);" class="btn btn-default stat-item">
                   <i class="fa fa-thumbs-up icon"></i>{{item.numOfLikes}}
                 </a>
-                <a href="javascript:void(0);" class="btn btn-default stat-item">
-                  <i class="fa fa-share icon"></i>0
-                </a>
+
                 <a  class="btn btn-default stat-item" (click)="setCommentsVisibilty(comments)">
-                  <i class="fa fa-comment icon"></i>0
+                  <i class="fa fa-comment icon"></i>{{item.comments.length}}
                 </a>
               </div>
             </div>
             <div class="post-footer" #comments style="display: none">
               <div class="input-group">
-                <input class="form-control" placeholder="Add a comment" type="text">
+                <input #comment class="form-control" placeholder="Add a comment" type="text">
                 <span class="input-group-addon">
-                                <a href="javascript:void(0);"><i class="fa fa-edit"></i></a>
-                            </span>
+                      <a (click)="saveComment(comment.value,item.postId)"><i class="fa fa-edit"></i></a>
+                </span>
               </div>
-              <ul class="comments-list">
-                <li class="comment">
+              <ul class="comments-list" style="width: 100%">
+                <li class="comment" *ngFor="let item of item.comments">
                   <a class="pull-left" href="javascript:void(0);">
-                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="avatar">
+                    <img class="avatar" [src]="item.user.personalImageUrl" alt="avatar">
                   </a>
                   <div class="comment-body">
                     <div class="comment-heading">
-                      <h4 class="user">John dOE</h4>
-                      <h5 class="time">7 minutes ago</h5>
+                      <h4 class="user">{{item.user.userName}}</h4>
+                      <h5 class="time">{{item.date}}</h5>
+                      <button *ngIf="item.user.userId == this.userId" (click)="deleteComment(item.postCommentId)" style="float: right" mat-mini-fab color="warn" matTooltip="delete the comment">
+                        <mat-icon>delete</mat-icon>
+                      </button>
                     </div>
-                    <p>I really love this picture. I really wish i could have been there.</p>
-                  </div>
-                </li>
-                <li class="comment">
-                  <a class="pull-left" href="javascript:void(0);">
-                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="avatar">
-                  </a>
-                  <div class="comment-body">
-                    <div class="comment-heading">
-                      <h4 class="user">John Doe</h4>
-                      <h5 class="time">3 minutes ago</h5>
-                    </div>
-                    <p>I think I might you this for one of my projects.</p>
-                  </div>
-                </li>
-                <li class="comment">
-                  <a class="pull-left" href="javascript:void(0);">
-                    <img class="avatar" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="avatar">
-                  </a>
-                  <div class="comment-body">
-                    <div class="comment-heading">
-                      <h4 class="user">John Doe</h4>
-                      <h5 class="time">10 seconds ago</h5>
-                    </div>
-                    <p>Wow! This is gorgeous.</p>
+                    <p>{{item.text}}</p>
                   </div>
                 </li>
               </ul>
             </div>
           </div>
         </div>
+        <!--
         <div class="col-sm-6">
           <div class="panel panel-white post">
             <div class="post-heading">
@@ -204,6 +182,7 @@
             </div>
           </div>
         </div>
+        -->
       </div>
     </div>
   </div>

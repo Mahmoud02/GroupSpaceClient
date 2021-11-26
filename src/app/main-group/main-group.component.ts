@@ -13,7 +13,7 @@ export class MainGroupComponent implements OnInit {
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.groupId = params.id;
-      alert(this.groupId);
+      // alert(this.groupId);
     });
   }
 

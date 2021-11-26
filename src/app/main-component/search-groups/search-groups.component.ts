@@ -7,6 +7,7 @@ import {GroupTypesService} from '../../Services/group-types.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {JoinRequestService} from '../../Services/join-request.service';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-search-groups',
@@ -16,7 +17,6 @@ import {JoinRequestService} from '../../Services/join-request.service';
 export class SearchGroupsComponent implements OnInit {
   GroupsList: IGroup[] = [];
   GroupsIdOfJoinRequest: number[] = [];
-
   GroupsTypesList: IGroupTypes[] = [];
   closeResult = '';
   user: any;
@@ -28,15 +28,16 @@ export class SearchGroupsComponent implements OnInit {
     private joinRequestService: JoinRequestService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private oauthService: OAuthService
+
   ) {
-    this.user = JSON.parse( localStorage.getItem('userData') as string);
-    this.userEmail = this.user.email;
-    this.userId = this.user.userId;
+    const claims: any = this.oauthService.getIdentityClaims();
+    this.userId = claims.sub;
   }
 
   ngOnInit(): void {
-    this.findGroups(this.userId);
+    this.findGroups();
     this.getGroupsIdOfJoinRequestByUserId(this.userId);
   }
   setDropDownListVisibility(ele: any): void{
@@ -48,8 +49,8 @@ export class SearchGroupsComponent implements OnInit {
   }
 
   /*get  Groups */
-  findGroups(userId: any): void{
-    this.groupService.findGroups(userId).subscribe(
+  findGroups(): void{
+    this.groupService.findGroups().subscribe(
       (result) => {
         console.log(result.data);
         if (result.data.length < 1 ){
@@ -72,7 +73,6 @@ export class SearchGroupsComponent implements OnInit {
   sendJoinRequest(Id: any): void{
     this.GroupsIdOfJoinRequest.push(Id);
     const joinRequestObj = {
-     userId: this.userId,
      groupId: Id
     };
     this.joinRequestService.sendJoinRequest(joinRequestObj).subscribe(
@@ -91,7 +91,6 @@ export class SearchGroupsComponent implements OnInit {
   deleteJoinRequest(Id: any): void{
     this.GroupsIdOfJoinRequest = this.GroupsIdOfJoinRequest.filter(num => num !== Id);
     const joinRequestObj = {
-      userId: this.userId,
       groupId: Id
     };
     this.joinRequestService.deleteJoinRequest(joinRequestObj).subscribe(

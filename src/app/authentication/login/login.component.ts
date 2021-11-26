@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {AuthService} from '../../Services/auth.service';
 import {Router} from '@angular/router';
+import {JwksValidationHandler, OAuthService} from 'angular-oauth2-oidc';
+import {authCodeFlowConfig} from '../auth.config';
 
 @Component({
   selector: 'app-login',
@@ -10,15 +12,38 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   showSpinner = false;
-  constructor(private authService: AuthService, private snackBar: MatSnackBar, private router: Router) { }
 
-  ngOnInit(): void {
-    if (localStorage.getItem('userData')) {
-      // logged in so return true
-      this.router.navigateByUrl('/login');
+  constructor(private oauthService: OAuthService, private snackBar: MatSnackBar, private router: Router) {
+    if (this.oauthService.hasValidAccessToken()) {
+      //  logged in so redirect to login page with the return url
+      this.router.navigateByUrl('/feeds').then(
+        value => {
+          this.openSnackBar('Hello bro !! ', 'close',
+            {
+              duration: 3000,
+            }
+          );
+        }
+      );
     }
+    this.configureIdentityProviderSettings();
+  }
+  ngOnInit(): void {}
+  configureIdentityProviderSettings(): void{
+    this.oauthService.configure(authCodeFlowConfig);
+    // Load Discovery Document and then try to login the user
+    this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
   authenticate(email: string, password: string): void{
+    this.oauthService.initCodeFlow();
+  }
+  openSnackBar(message: string, action: string , config: any): void {
+    this.snackBar.open(message, action, config);
+  }
+}
+// old sign in
+/*
+ authenticate(email: string, password: string): void{
     this.showSpinner = true;
     const userAuth = {
       Email: email,
@@ -61,7 +86,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-  openSnackBar(message: string, action: string , config: any): void {
-    this.snackBar.open(message, action, config);
-  }
-}
+*/

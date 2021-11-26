@@ -6,6 +6,7 @@ import {IJoinRequest} from '../../../../models/IJoinRequest';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatPaginator} from '@angular/material/paginator';
 import {JoinRequestService} from '../../../../Services/join-request.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-group-joined-requests',
@@ -18,13 +19,20 @@ export class GroupJoinedRequestsComponent implements OnInit {
   page = 1;
   pageSize = 4;
   collectionSize = this.JoinRequestList.length;
+  GROUP_ID: any;
   constructor(
     private groupService: GroupService ,
     private joinRequestService: JoinRequestService,
-    private snackBar: MatSnackBar) { }
+    private router: Router,
+    private snackBar: MatSnackBar) {
+    // @ts-ignore
+    const routerData = router.getCurrentNavigation().extras.state;
+    // @ts-ignore
+    this.GROUP_ID = routerData.state;
+  }
 
   ngOnInit(): void {
-    this.getGroupJoinRequests(16);
+    this.getGroupJoinRequests(this.GROUP_ID);
   }
   getGroupJoinRequests(groupId: any): void{
     this.groupService.getGroupJoinRequests(groupId).subscribe(

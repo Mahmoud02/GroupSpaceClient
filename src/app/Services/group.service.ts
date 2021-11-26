@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {IGroup} from '../models/IGroup';
 import {IJoinRequest} from '../models/IJoinRequest';
 import {IGroupMember} from '../models/IGroupMember';
+import {IPostReport} from '../models/IPostReport';
 
 @Injectable({
   providedIn: 'root'
@@ -25,18 +26,19 @@ export class GroupService {
     formData.append('Description', group.Description);
     formData.append('CoverPhoto', group.CoverPhoto);
     formData.append('Private', group.Private);
-    formData.append('UserId', group.UserId);
     formData.append('GroupTypeId', group.GroupTypeId);
-
     return this.httpClient.post<any>(this.endPoint, formData);
   }
   getUserGroups(userId: any): Observable<any> {
     return this.httpClient.get<IGroup>(this.endPoint2 + '/' + userId + '/groups', this.httpHeader);
   }
-  findGroups(userId: any): Observable<any> {
-    const UserID = {userId};
-    const params = new HttpParams().set('userId', userId);
-    return this.httpClient.get<any>(this.endPoint + '/find', { params });
+  getUserJoinedGroups(userId: any): Observable<any> {
+    return this.httpClient.get<IGroup[]>(this.endPoint2 + '/' + userId + '/joined', this.httpHeader);
+  }
+  findGroups(): Observable<any> {
+    // const params = new HttpParams().set('sub', userId);
+    // return this.httpClient.get<any>(this.endPoint + '/find', { params });
+    return this.httpClient.get<any>(this.endPoint + '/find');
   }
   /*group related data*/
   getGroupMetaData(groupId: any): Observable<any> {
@@ -49,11 +51,11 @@ export class GroupService {
   getGroupJoinRequests(groupId: any): Observable<any> {
     return this.httpClient.get<IJoinRequest[]>(this.endPoint + '/' + groupId + '/requests', this.httpHeader);
   }
+  getGroupReportedPosts(groupId: any): Observable<any> {
+    return this.httpClient.get<IPostReport[]>(this.endPoint + '/' + groupId + '/reports', this.httpHeader);
+  }
+  /*Admin of the Action Services*/
   kickUserFromGroup(groupMemberId: any): Observable<any> {
     return this.httpClient.delete<any>(this.endPoint3 + '/' + groupMemberId );
   }
-  getUserJoinedGroups(userId: any): Observable<any> {
-    return this.httpClient.get<IGroup[]>(this.endPoint2 + '/' + userId + '/joined', this.httpHeader);
-  }
-
 }

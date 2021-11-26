@@ -10,7 +10,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {FormsModule} from '@angular/forms';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MainGroupComponent } from './main-group/main-group.component';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -34,6 +34,8 @@ import { GroupReportsComponent } from './main-component/manage-groups/group-deta
 import { GroupInfoComponent } from './main-component/manage-groups/group-details/group-info/group-info.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
+import {OAuthModule} from 'angular-oauth2-oidc';
+import {AuthInterceptorService} from './HttpInterceptor/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -73,9 +75,12 @@ import {MatSelectModule} from '@angular/material/select';
     MatTableModule,
     MatPaginatorModule,
     MatTooltipModule,
-    MatSelectModule
+    MatSelectModule,
+    OAuthModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

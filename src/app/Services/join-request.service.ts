@@ -30,7 +30,6 @@ export class JoinRequestService {
         'Content-Type': 'application/json',
       }),
       body: {
-        userId: joinRequest.userId,
         groupId: joinRequest.groupId
       },
     };

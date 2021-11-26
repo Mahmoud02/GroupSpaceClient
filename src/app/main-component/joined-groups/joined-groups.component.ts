@@ -6,6 +6,7 @@ import {GroupTypesService} from '../../Services/group-types.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {ActivatedRoute, Router} from '@angular/router';
 import {IGroupMember} from '../../models/IGroupMember';
+import {OAuthService} from 'angular-oauth2-oidc';
 
 @Component({
   selector: 'app-joined-groups',
@@ -21,10 +22,11 @@ export class JoinedGroupsComponent implements OnInit {
     private groupTypesService: GroupTypesService,
     private snackBar: MatSnackBar,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private oauthService: OAuthService
   ) {
-    this.user = JSON.parse( localStorage.getItem('userData') as string);
-    this.userId = this.user.userId;
+    const claims: any = this.oauthService.getIdentityClaims();
+    this.userId = claims.sub;
   }
 
   ngOnInit(): void {

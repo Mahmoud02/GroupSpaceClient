@@ -8,19 +8,19 @@
     </div>
     <div class="col-md-3">
       <div class="widget shadow p-3 mb-5 bg-white rounded">
-        <h3 class="widget-title"><a  [routerLink]="['joinRequests']">#Request</a></h3>
+        <h3 class="widget-title"><a  [routerLink]="['joinRequests']" [state]="{ state:groupId}">#Request</a></h3>
         <p class="widget-count" >{{groupMetaData.numOfJoinRequests}}</p>
       </div>
     </div>
     <div class="col-md-3">
       <div class="widget shadow p-3 mb-5 bg-white rounded">
-        <h3 class="widget-title"><a  [routerLink]="['reports']">Reports</a></h3>
+        <h3 class="widget-title"><a  [routerLink]="['reports']" [state]="{ state:groupId}">Reports</a></h3>
         <p class="widget-count">{{groupMetaData.numOfReports}}</p>
       </div>
     </div>
     <div class="col-md-3">
       <div class="widget shadow p-3 mb-5 bg-white rounded">
-        <h3 class="widget-title"><a  [routerLink]="['info']">Edit Group Info</a></h3>
+        <h3 class="widget-title"><a  [routerLink]="['info']" [state]="{ state:groupId}">Edit Group Info</a></h3>
         <p class="widget-count">400</p>
       </div>
     </div>

@@ -1,1 +1,49 @@
-<p>group-reports works!</p>
+<p>You can bind our <code>NgbPagination</code> component with slicing the data list</p>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Name</th>
+    <th scope="col">post content</th>
+    <th scope="col">image</th>
+    <th scope="col">#Times</th>
+    <th scope="col">Delete the Post</th>
+    <th scope="col">ban from post</th>
+    <th scope="col">Kick User from group</th>
+
+
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let item of FilteredPostsReportList; index as i">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ item.user.userName}}</td>
+    <td>{{ item.post.text}}</td>
+    <td *ngIf="item.post.photoUrl"> <img [src]="item.post.photoUrl" style="width: 100px" height="100px"> </td>
+    <td *ngIf="!item.post.photoUrl">no image</td>
+    <td>{{ item.numOfTimes}}</td>
+    <td>
+      <button  type="button" class="btn btn-outline-danger mx-4" >Delete</button>
+    </td>
+    <td>
+      <button  type="button" class="btn btn-outline-danger mx-4" >ban</button>
+    </td>
+    <td>
+      <button  type="button" class="btn btn-outline-danger mx-4" >Kick</button>
+    </td>
+
+  </tr>
+  </tbody>
+</table>
+
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshList()">
+  </ngb-pagination>
+
+  <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshList()">
+    <option [ngValue]="2">2 items per page</option>
+    <option [ngValue]="4">4 items per page</option>
+    <option [ngValue]="6">6 items per page</option>
+  </select>
+</div>

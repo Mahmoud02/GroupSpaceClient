@@ -1,14 +1,12 @@
 import {IUser} from './IUser';
-import {IPostComment} from './IPostComment';
 
-export interface IPost{
-  'postId': number;
+export interface IPostComment {
+  'postCommentId': number;
   'text': string;
   'date': string;
   'userId': number;
-  'groupId': number;
+  'postId': number;
   'numOfLikes': number;
   'photoUrl': string;
   'user': IUser;
-  'comments': IPostComment[];
 }
